@@ -1,6 +1,6 @@
 package scv.pauls.webhelloworld.config;
 
-import io.khasang.moika.config.application.WebConfig;
+import scv.pauls.webhelloworld.config.application.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
