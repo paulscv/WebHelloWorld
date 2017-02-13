@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"scv.pauls.webhelloworld.controller"})
+@ComponentScan({"scv.pauls.webhelloworld.controller", "scv.pauls.webhelloworld.model", "scv.pauls.webhelloworld.config"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public InternalResourceViewResolver viewResolver() {
