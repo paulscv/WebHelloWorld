@@ -1,4 +1,4 @@
-package io.khasang.moika.config;
+package scv.pauls.webhelloworld.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -15,7 +15,8 @@ public class SelectTestTables {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public SelectTestTables() {}
+    public SelectTestTables() {
+    }
 
 
     public JdbcTemplate getJdbcTemplate() {
@@ -26,30 +27,37 @@ public class SelectTestTables {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private List<String> selectTable(String tableName){
+    private List<String> selectTable(String tableName) {
         List<Map<String, Object>> rows = new ArrayList<>();
         List<String> strings = new ArrayList<String>();
-        strings.add("Select * from "+tableName +"<br>");
-        String sqlQuery = "Select * from "+tableName;
+        strings.add("Select * from " + tableName + "<br>");
+        String sqlQuery = "Select * from " + tableName;
         try {
             rows = jdbcTemplate.queryForList(sqlQuery);
             strings.add(rows.size() + " rows selected <br>");
-            if (rows.size() > 0 ) {
+            if (rows.size() > 0) {
                 StringBuilder strb = new StringBuilder();
                 for (Map.Entry<String, Object> entry : rows.get(0).entrySet()) strb.append(entry.getKey() + " | ");
                 strb.append("<br>");
-                strings.add(strb.toString()+"<br>");
+                strings.add(strb.toString() + "<br>");
                 //int i = 1;
                 //for (Map<String, Object> fields : rows) {
-                for (int i = 0 ;  i < rows.size(); i++) {
+                for (int i = 0; i < rows.size(); i++) { //прошлись по записям
                     strb.setLength(0);
-                    strb.append("rec N " + i +" ");
-                   for (Map.Entry<String, Object> entry : rows.get(i).entrySet()) strb.append(entry.getValue().toString() + " | ");
-                   strings.add(strb.toString()+"<br>");
+                    strb.append("rec N " + i + " ");
+                    Iterator entries = rows.get(i).entrySet().iterator();
+                    while (entries.hasNext()) { //прошлись по полям
+                        Map.Entry thisEntry = (Map.Entry) entries.next();
+                        Object value = thisEntry.getValue();
+                        if (value != null)
+                            strb.append(value.toString() + " | ");
+                        else
+                            strb.append(" null | ");
+                    }
+                    strings.add(strb.toString() + "<br>");
                 }
-            }
-            else strings.add("Table is empty!");
-        } catch (Exception e)  {
+            } else strings.add("Table is empty!");
+        } catch (Exception e) {
             strings.add(e.getMessage() + "<br>");
         } finally {
             return strings;
@@ -57,13 +65,13 @@ public class SelectTestTables {
 
     }
 
-    public String getRowsAsString(String tableName){
+    public String getRowsAsString(String tableName) {
         StringBuilder sb = new StringBuilder();
         List<String> strings = selectTable(tableName);
-            for (String s : strings) {
-                    sb.append(s);
-            }
-            return sb.toString();
+        for (String s : strings) {
+            sb.append(s);
+        }
+        return sb.toString();
 
     }
 }

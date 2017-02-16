@@ -1,4 +1,4 @@
-package io.khasang.moika.config;
+package scv.pauls.webhelloworld.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
